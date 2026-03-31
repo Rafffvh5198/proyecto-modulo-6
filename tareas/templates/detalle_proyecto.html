@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Detalle Proyecto
+{% endblock %}
+
+{% block contenido %}
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6"> 
+                    <p>{{proyecto.nombre}}</p>
+                    <p>{{proyecto.descripcion}}</p>
+
+                    <hr class="pt-4 ">
+                <h2>Tareas</h2>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-success">
+                            <th>Realizada</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="pb-4">
+                    {% for tarea in tareas %}
+                        <tr>
+                            <td>
+                                <form method="post" action="{% url 'toggle_tarea' tarea.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                        {% if tarea.completada %}
+                                            ✅
+                                        {% else %}
+                                            ❌
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="mb-2">
+                                
+                                {{ tarea.titulo }}
+                            </td>
+                            <td>
+                                {{ tarea.descripcion }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                
+                <hr>
+
+                <h2 class="pt-4 pb-3">Agregar tarea</h2>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Guardar tarea</button>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

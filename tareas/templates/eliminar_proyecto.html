@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titulo  %}
+Eliminar Proyecto
+{% endblock  %}
+
+{% block contenido %}
+<main>
+     <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h1 class="text-center my-5" >Eliminar Proyecto</h1>
+                <p>¿Estas seguro que deseas eliminar el proyecto "<strong>{{ proyecto }}</strong>"?</p>
+                <form method="POST">
+                    {% csrf_token %}         
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                    <a href="{% url 'proyectos' %}">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock contenido %}
